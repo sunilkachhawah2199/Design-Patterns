@@ -1,4 +1,4 @@
-package builder.developer_ready.v1;
+package Design_Patterns_And_Priciples.builder.developer_ready.v1;
 
 public class Client {
     public static void main(String[] args) throws Exception {

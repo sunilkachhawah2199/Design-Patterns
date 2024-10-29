@@ -1,9 +1,8 @@
-package prototype;
+package Design_Patterns_And_Priciples.prototype;
 
 import java.util.HashMap;
-import java.util.concurrent.Callable;
 
-// this should be singleton class
+// this should be Design_Patterns_And_Priciples.singleton class
 public class StudentRegistry  {
     private HashMap<String, Student> registry;
     private StudentRegistry(){

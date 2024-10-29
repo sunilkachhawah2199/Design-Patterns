@@ -1,4 +1,4 @@
-package singleton;
+package Design_Patterns_And_Priciples.singleton;
 // double checked locking approach
 public class DCL {
     private static DCL instance=null;
@@ -19,7 +19,7 @@ public class DCL {
 }
 
 /*
-this is a most recommended approach to create a singleton class.
+this is a most recommended approach to create a Design_Patterns_And_Priciples.singleton class.
 In this approach, we have used double-checked locking to solve the problem of multiple threads accessing the
 getInstance() method at the same time.
  */

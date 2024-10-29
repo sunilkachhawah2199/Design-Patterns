@@ -1,4 +1,4 @@
-package prototype;
+package Design_Patterns_And_Priciples.prototype;
 
 public class IntellignetStudent extends Student {
     private int iq;

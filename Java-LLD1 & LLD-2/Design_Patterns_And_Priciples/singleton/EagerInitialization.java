@@ -1,4 +1,4 @@
-package singleton;
+package Design_Patterns_And_Priciples.singleton;
 
 public class EagerInitialization {
     // static variable are initialized when the class is loaded into memory by JVM

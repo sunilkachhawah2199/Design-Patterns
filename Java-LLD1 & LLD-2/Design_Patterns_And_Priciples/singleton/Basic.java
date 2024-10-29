@@ -1,4 +1,4 @@
-package singleton;
+package Design_Patterns_And_Priciples.singleton;
 
 public class Basic {
     private static Basic obj=null;
@@ -18,6 +18,6 @@ public class Basic {
 
 /*
 this is very basic approach
-we can get object of singleton class using only getInstance method only
+we can get object of Design_Patterns_And_Priciples.singleton class using only getInstance method only
 this will work very well in Single thread application only but this code will get fail in MT application.
  */

@@ -1,4 +1,4 @@
-package singleton;
+package Design_Patterns_And_Priciples.singleton;
 // in this approach we will try to solve the problem of multiple threads accessing the getInstance() method at the same time
 public class SynchronizedMethod {
     private static SynchronizedMethod instance=null;
@@ -16,7 +16,7 @@ public class SynchronizedMethod {
 
 
 /*
-this is a worst approach to create a singleton class.
+this is a worst approach to create a Design_Patterns_And_Priciples.singleton class.
     In this approach, we have made the getInstance() method synchronized.
     This means that only one thread can access this method at a time.
     This approach solves the problem of multiple threads accessing the getInstance() method at the same time.

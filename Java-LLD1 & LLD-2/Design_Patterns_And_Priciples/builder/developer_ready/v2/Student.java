@@ -1,4 +1,4 @@
-package builder.developer_ready.v2;
+package Design_Patterns_And_Priciples.builder.developer_ready.v2;
 
 public class Student {
     String name;
