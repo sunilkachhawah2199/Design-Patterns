@@ -15,7 +15,7 @@ public class Client {
 
         StudentRegistry sr= StudentRegistry.getInstance();
 
-        // runnable task
+        // runnable task --> checking single instance is created of registry object.
         Runnable task=() -> {
             StudentRegistry instance= StudentRegistry.getInstance();
             System.out.println("instance hashcode"+ instance.toString());

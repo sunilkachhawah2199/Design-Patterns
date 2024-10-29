@@ -18,6 +18,8 @@ public class Client {
                 .setName("John Doe")
                 .setAge(18)
                 .setGender("Male")
+                // above all 3 will return helper object
+                // below 1 will return student type object
                 .build();
     }
 }
