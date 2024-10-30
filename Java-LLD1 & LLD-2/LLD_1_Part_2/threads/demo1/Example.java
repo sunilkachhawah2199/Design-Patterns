@@ -1,4 +1,4 @@
-package thread_synchronize.threads.demo1;
+package LLD_1_Part_2.threads.demo1;
 
 public class Example {
     public static void main(String[] args) throws Exception{

@@ -1,6 +1,5 @@
-package thread_synchronize.executors.runable;
+package LLD_1_Part_2.executors.runable;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 /*

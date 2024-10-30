@@ -1,4 +1,4 @@
-package thread_synchronize.threads.demo2;
+package LLD_1_Part_2.threads.demo2;
 
 public class OddPrinter implements Runnable{
     @Override

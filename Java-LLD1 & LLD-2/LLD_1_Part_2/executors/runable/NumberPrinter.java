@@ -1,4 +1,4 @@
-package thread_synchronize.executors.runable;
+package LLD_1_Part_2.executors.runable;
 
 public class NumberPrinter implements Runnable{
 
