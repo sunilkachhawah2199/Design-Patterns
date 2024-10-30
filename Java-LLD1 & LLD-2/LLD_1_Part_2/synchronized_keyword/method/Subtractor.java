@@ -1,4 +1,4 @@
-package LLD_1_Part_2.sysnchronization;
+package LLD_1_Part_2.synchronized_keyword.method;
 
 public class Subtractor implements Runnable{
     Count c;
