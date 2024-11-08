@@ -10,9 +10,11 @@ public class Client {
                 .setAge(18)
                 .setGender("Male");
 
+
          return type of this will be Helper if we can return Student object directly then we will get rid of Helper class completely
 
          */
+
 
         Student s = Student.getHelper()
                 .setName("John Doe")
@@ -28,7 +30,7 @@ public class Client {
 /*
         1. Get rid of 2 classes and have a single class.
         2. Make Builder as static inner class
-        3. Create a static method in Student (getBuilder), which return obj of Design_Patterns_And_Priciples.builder
+        3. Create a static method in Student (getBuilder), which return obj of builder class
         4. We changed the return type of setters to Builder. // Method Chaining
-        5. We will create build method inside Builder --> which will return Student
+        5. We will create build method inside Builder --> which will return Student(outer class) object
  */
