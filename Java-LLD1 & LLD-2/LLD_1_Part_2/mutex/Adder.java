@@ -1,6 +1,6 @@
 package LLD_1_Part_2.mutex;
 
-import java.util.concurrent.Callable;
+
 import java.util.concurrent.locks.Lock;
 
 public class Adder implements Runnable {
@@ -18,8 +18,5 @@ public class Adder implements Runnable {
             cnt.num++;
             lock.unlock();
         }
-
     }
-
-
 }

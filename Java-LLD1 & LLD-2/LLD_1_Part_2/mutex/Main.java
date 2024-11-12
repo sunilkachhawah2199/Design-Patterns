@@ -1,9 +1,10 @@
 package LLD_1_Part_2.mutex;
 
-import java.util.TreeMap;
+
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+//we share same lock object with both lock instance
 public class Main {
     public static void main(String[] args) throws Exception{
         Count cnt=new Count(0);
@@ -24,7 +25,3 @@ public class Main {
         System.out.println("cnt.num "+cnt.num);
     }
 }
-
-/*
-we share same lock object with both lock instance
- */

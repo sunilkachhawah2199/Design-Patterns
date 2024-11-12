@@ -141,6 +141,7 @@ public class TicTacGame {
         }
         GameStatus gameStatus=gameController.getGameStatus(game);
         if(gameStatus.equals(GameStatus.DRAW)){
+            gameController.printBoard(game);
             System.out.println("Game has been drawn");
         }
 

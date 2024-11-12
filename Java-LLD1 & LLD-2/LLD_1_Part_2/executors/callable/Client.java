@@ -1,11 +1,12 @@
 package LLD_1_Part_2.executors.callable;
 
 import LLD_1_Part_2.executors.runable.NumberPrinter;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+// use .submit() --> when using callable.
+// we use Future to hold a value that will be returned by Callable
 public class Client {
     public static void main(String[] args) throws Exception{
         NumberPrinter np;
@@ -26,5 +27,4 @@ public class Client {
     }
 }
 
-// use .submit() --> when using callable.
-// we use Future to hold a value which will wi returned by Callable
+
