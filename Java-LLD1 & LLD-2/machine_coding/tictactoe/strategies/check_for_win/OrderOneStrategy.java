@@ -18,12 +18,16 @@ public class OrderOneStrategy implements PlayerWonStratgey{
     // total 2 hm for 2 rows
     private HashMap<Character, Integer> diagonalMap;
     private HashMap<Character, Integer> reverseDiagonalMap;
+    int n;
 
 
     // for n size board we need n hashmap in row and n hashmap in col
     public OrderOneStrategy(int n){
+        this.n=n;
         rowsMap=new ArrayList<>();
         colsMap=new ArrayList<>();
+        diagonalMap=new HashMap<>();
+        reverseDiagonalMap=new HashMap<>();
         for(int i=0;i<n;i++){
             rowsMap.add(new HashMap<>());
             colsMap.add(new HashMap<>());
@@ -37,6 +41,7 @@ public class OrderOneStrategy implements PlayerWonStratgey{
         Player currPlayer= currCell.getPlayer(); // player who made move on this cell
         char symbol=currPlayer.getSymbol().getS();
 
+
         // getting location of cell so we can update hm according to this location
         int row=currCell.getRow();
         int col=currCell.getCol();
@@ -44,31 +49,36 @@ public class OrderOneStrategy implements PlayerWonStratgey{
         HashMap<Character, Integer> rowMap=rowsMap.get(row); // hashmap for that row
         HashMap<Character, Integer> colMap=rowsMap.get(col); // hm for that col
 
+        // adding count of moves by player and if any move become equal to length like row, col, diagonal then user will won
         rowMap.put(symbol, rowMap.getOrDefault(symbol, 0)+1);
         colMap.put(symbol,colMap.getOrDefault(colMap,0)+1);
 
         // will check for that location is present on diagonal or on reverse diagonal
+        // if present on diafgonal then only update diagonal hm
+        if(checkIfCellIsOnDiagonal(currCell)){
+            diagonalMap.put(symbol, diagonalMap.getOrDefault(symbol,0)+1);
+        }
+
+        if(checkIfCellIsOnReverseDiagonal(board.getSize(), currCell)){
+            reverseDiagonalMap.put(symbol, reverseDiagonalMap.getOrDefault(board.getSize(), 0)+1);
+        }
+        // now if count in any row, col, diagonal, reverse diagonal
+        // in row maximum player= board size and same for col
+        // for diagonal: if all diagonal cell are field with same symbol then count= root((n*n)+(n*n))
 
 
+        if(rowMap.get(symbol)==n) return true;
+        if(colMap.get(symbol)==n) return true;
+        if(checkIfCellIsOnDiagonal(currCell) &&  diagonalMap.get(symbol)==n ) return true;
+        if(checkIfCellIsOnReverseDiagonal(this.n, currCell) && reverseDiagonalMap.get(symbol)==n)return true;
         return  false;
     }
 
-    private boolean checkIfCellIsOnDiagonal(int n,Cell cell){
-        if(cell.getRow()== cell.getCol()) return true;
-        else return false;
+    private boolean checkIfCellIsOnDiagonal(Cell cell){
+        return cell.getRow()== cell.getCol();
     }
 
     private boolean checkIfCellIsOnReverseDiagonal(int n,Cell cell){
-        if(cell.getRow()== n-1-cell.getCol()) return true;
-        else return false;
-    }
-
-    private boolean checkIfCellIsCenter(int n,Cell cell){
-        if(n%2==0) return false;
-        int center=n/2;
-        int row=cell.getRow();
-        int col=cell.getCol();
-        if(row== col && row==center && col ==center) return true;
-        else return false;
+        return cell.getRow()== n-1-cell.getCol();
     }
 }

@@ -52,7 +52,7 @@ public class Cell {
 
     // logic to check cell status
     public boolean isUnoccupied(){
-        if(this.player==null && !this.cellStatus.equals(CellStatus.UNOCCUPIED)) return true;
+        if(this.player==null && this.cellStatus.equals(CellStatus.UNOCCUPIED)) return true;
         else return false;
     }
 

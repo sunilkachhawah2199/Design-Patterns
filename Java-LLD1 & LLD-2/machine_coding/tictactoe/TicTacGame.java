@@ -54,8 +54,7 @@ public class TicTacGame {
         // taking bot lavel
         // all bot have same level so we are taking outside the loop
 
-        System.out.println("Enter the bot level");
-        String botLevel=sc.next();
+
 
 
         // WE will decide bot symbol automatically from this string which is not used by any player
@@ -63,12 +62,26 @@ public class TicTacGame {
         String s="ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789!@#$%^&*+*";
         int j=0;
         for(int i=0;i<bot;i++){
-            // we can randomize this also
-            /*
-            while(symbols.contains(s.charAt(j))){
-                j++;
+            System.out.println("Enter the bot level");
+            String diffLevel=sc.next();
+            diffLevel=diffLevel.toUpperCase();
+            BotLevel botLevel;
+            char first=diffLevel.charAt(0);
+            switch (first){
+                case 'E':
+                    botLevel=BotLevel.EASY;
+                    break;
+                case 'M':
+                    botLevel=BotLevel.MEDIUM;
+                    break;
+                case 'H':
+                    botLevel=BotLevel.DIFFICULT;
+                    break;
+                default:
+                    botLevel=BotLevel.EASY;
+                    break;
             }
-             */
+
             Random random=new Random();
             int idx=random.nextInt(s.length());
             while(symbols.contains(s.charAt(idx))){
@@ -81,7 +94,7 @@ public class TicTacGame {
 
 
 
-            players.add(new BotPlayer("Bot"+(i+1), symbol, BotLevel.valueOf(botLevel)));
+            players.add(new BotPlayer("Bot"+(i+1), symbol, botLevel));
         }
 
         // ------------------------ now next step is create game object ------------------------
@@ -140,6 +153,10 @@ public class TicTacGame {
 
         }
         GameStatus gameStatus=gameController.getGameStatus(game);
+        if(gameStatus.equals(GameStatus.WON)){
+            gameController.printBoard(game);
+            System.out.println("Game has been won");
+        }
         if(gameStatus.equals(GameStatus.DRAW)){
             gameController.printBoard(game);
             System.out.println("Game has been drawn");

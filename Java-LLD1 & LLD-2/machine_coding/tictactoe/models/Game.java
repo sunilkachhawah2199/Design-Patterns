@@ -1,6 +1,8 @@
 package machine_coding.tictactoe.models;
 
 import machine_coding.tictactoe.exceptions.BotCountExceedExcetpion;
+import machine_coding.tictactoe.strategies.check_for_win.OrderOneStrategy;
+import machine_coding.tictactoe.strategies.check_for_win.PlayerWonStratgey;
 import machine_coding.tictactoe.utilities.Pair;
 
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ public class Game {
     private int currentPlayerIdx; // index of current player
     private List<Move> moves;
 
+    private PlayerWonStratgey winningStrategy;
+
     // I can create big constructor with all the fields, but I am going to use builder pattern
     // we use builder design pattern when we have too many fields to set in the constructor
     // and we don't want to create multiple constructors
@@ -22,12 +26,13 @@ public class Game {
     // constructor with GameBuilder object as parameter
     // this is a private constructor
 
-    private Game(Board board, List<Player> players, GameStatus gameStatus, int currentPlayerIdx, List<Move> moves) {
+    private Game(Board board, List<Player> players, GameStatus gameStatus, int currentPlayerIdx, List<Move> moves, PlayerWonStratgey playerWonStratgey) {
         this.board = board;
         this.players = players;
         this.gameStatus = gameStatus;
         this.currentPlayerIdx = currentPlayerIdx;
         this.moves = moves;
+        this.winningStrategy=playerWonStratgey;
     }
 
     // getter for getting game status
@@ -60,7 +65,7 @@ public class Game {
 
         // before making move check cell is usable or not --> it should be unoccupied
 
-        while(this.board.checkIfCellIsUnoccupied(rowCol)){
+        while(!this.board.checkIfCellIsUnoccupied(rowCol)){
             if(player instanceof HumanPlayer){
                 System.out.println("Please make a different move");
             }
@@ -74,11 +79,11 @@ public class Game {
         Move move=new Move(player, cell);
         this.moves.add(move);
 
-        // check for win
-        if(checkForWin()){
+
+        if(winningStrategy.checkforWin(this.board, cell)){
             this.gameStatus=GameStatus.WON;
             System.out.println("game is ended");
-            System.out.println(" "+player+" won the match");
+            System.out.println(" "+player.getName()+" won the match");
             return;
         }
 
@@ -93,10 +98,7 @@ public class Game {
         currentPlayerIdx=(currentPlayerIdx+1)%(this.board.getSize()-1);
     }
 
-    // check for win
-    public boolean checkForWin(){
-        return false;
-    }
+
 
     // check for drawn
     public boolean checkForDrawn(){
@@ -135,7 +137,7 @@ public class Game {
 
              System.out.println("game build");
 
-             return new Game(this.board, this.players, GameStatus.IN_PROGRESS, 0, new ArrayList<>());
+             return new Game(this.board, this.players, GameStatus.IN_PROGRESS, 0, new ArrayList<>(), new OrderOneStrategy(board.getSize()));
          }
     }
 }
