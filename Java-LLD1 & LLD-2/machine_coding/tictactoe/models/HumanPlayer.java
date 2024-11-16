@@ -5,6 +5,7 @@ import machine_coding.tictactoe.utilities.Pair;
 import java.util.Scanner;
 
 public class HumanPlayer extends Player{
+    private int pendingUndoCount;
     public HumanPlayer(String name, Symbol s){
         super(name, s); // will call the constructor of the parent class
     }
@@ -32,6 +33,18 @@ public class HumanPlayer extends Player{
         // player has don't direct access to make a move operation because all core operation should be handles from game class
         // so we will return row and col from here and Game class will make a move
         return new Pair(row, col);
+    }
+
+    public int getPendingUndoCount() {
+        return pendingUndoCount;
+    }
+
+    public void setPendingUndoCount(int pendingUndoCount) {
+        this.pendingUndoCount = pendingUndoCount;
+    }
+
+    public void decrementUndoCount() {
+        this.pendingUndoCount=this.pendingUndoCount-1;
     }
 }
 

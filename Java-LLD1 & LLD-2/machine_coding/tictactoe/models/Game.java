@@ -7,6 +7,8 @@ import machine_coding.tictactoe.utilities.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Game {
     private Board board;
@@ -26,13 +28,19 @@ public class Game {
     // constructor with GameBuilder object as parameter
     // this is a private constructor
 
-    private Game(Board board, List<Player> players, GameStatus gameStatus, int currentPlayerIdx, List<Move> moves, PlayerWonStratgey playerWonStratgey) {
+    private Game(Board board, List<Player> players, GameStatus gameStatus, int currentPlayerIdx, List<Move> moves, PlayerWonStratgey playerWonStratgey, int undoLimitPerPlayer) {
         this.board = board;
         this.players = players;
         this.gameStatus = gameStatus;
         this.currentPlayerIdx = currentPlayerIdx;
         this.moves = moves;
         this.winningStrategy=playerWonStratgey;
+        for(Player player: players){
+            if(player instanceof HumanPlayer){
+                HumanPlayer humanPlayer= (HumanPlayer) player;
+                humanPlayer.setPendingUndoCount(undoLimitPerPlayer);
+            }
+        }
     }
 
     // getter for getting game status
@@ -61,6 +69,9 @@ public class Game {
     // make move operation
     public void makeMove(){
         Player player=this.players.get(currentPlayerIdx);
+
+        // it will run auto matic move method according to player type.
+        // if player will be bot then bot playstrategy will work
         Pair rowCol=player.makeMove(this.board); // we will get position to make a move
 
         // before making move check cell is usable or not --> it should be unoccupied
@@ -71,15 +82,17 @@ public class Game {
             }
             rowCol=player.makeMove(this.board);
         }
-        // if cell is useable then update board and add player to cell
+        // if cell is usable then update board and add player to cell
         this.board.setPlayer(rowCol, player);
 
         // now we have to capture the move
         Cell cell=this.board.getCell(rowCol);
         Move move=new Move(player, cell);
         this.moves.add(move);
+        printBoard();
 
 
+        // after make a move check for winning
         if(winningStrategy.checkforWin(this.board, cell)){
             this.gameStatus=GameStatus.WON;
             System.out.println("game is ended");
@@ -107,12 +120,51 @@ public class Game {
         return this.moves.size()==total;
     }
 
+    /* steps in undo
+    1. find
+    2. pop up undo message for every human player if human want to undo
+    3.
+     */
+    public void undo() {
+        int prevPlayerIdx=currentPlayerIdx-1;
+        if(prevPlayerIdx<0) prevPlayerIdx=players.size()-1;
+        Player player=this.players.get(prevPlayerIdx);
+        // if player is human
+        if(player instanceof HumanPlayer){
+            Scanner sc=new Scanner(System.in);
+            HumanPlayer humanPlayer=(HumanPlayer) player;
+            if(humanPlayer.getPendingUndoCount()>0){
+                System.out.println(player.getName()+" do you want to undo?");
+                String choice=sc.next();
+
+                if(choice.charAt(0)=='y' || choice.charAt(0)=='Y'){
+                    // removed from moves
+                    Move move=moves.remove(moves.size()-1);
+
+                    Cell cell=move.getCell();
+                    cell.removePlayer();
+
+                    // now make prev player to current player again
+                    this.currentPlayerIdx=prevPlayerIdx;
+
+                    // now also remove from hashmap where we added this player
+                    winningStrategy.handleUndo(move);
+                    System.out.println("We have successfully undo player: " + player.getName() + "'s last move");
+                    humanPlayer.decrementUndoCount();
+                    if(humanPlayer.getPendingUndoCount() == 0){
+                        System.out.println("This was your last undo, no more undo attempts left");
+                    }
+                }
+            }
+        }
+    }
 
 
     // this is a builder class
     public static class GameBuilder{
          private Board board;
          private List<Player> players;
+        private int undoLimitPerPlayer;
          /*
          private GameStatus gameStatus; // initially it will be IN_PROGRESS
          private int currentPlayerIdx; // will be 0 initially
@@ -130,6 +182,11 @@ public class Game {
              return this;
          }
 
+         public GameBuilder setUndolimit(int undoLimit){
+             this.undoLimitPerPlayer=undoLimit;
+             return this;
+         }
+
          // build method will return Game object
         // thi builder can throw exception also
         // Ex. 2 player and both are bot then we can throw exception
@@ -137,7 +194,7 @@ public class Game {
 
              System.out.println("game build");
 
-             return new Game(this.board, this.players, GameStatus.IN_PROGRESS, 0, new ArrayList<>(), new OrderOneStrategy(board.getSize()));
+             return new Game(this.board, this.players, GameStatus.IN_PROGRESS, 0, new ArrayList<>(), new OrderOneStrategy(board.getSize()), this.undoLimitPerPlayer);
          }
     }
 }

@@ -2,6 +2,7 @@ package machine_coding.tictactoe.strategies.check_for_win;
 
 import machine_coding.tictactoe.models.Board;
 import machine_coding.tictactoe.models.Cell;
+import machine_coding.tictactoe.models.Move;
 import machine_coding.tictactoe.models.Player;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class OrderOneStrategy implements PlayerWonStratgey{
         colsMap=new ArrayList<>();
         diagonalMap=new HashMap<>();
         reverseDiagonalMap=new HashMap<>();
+        // adding n row and n coll there will be n hashmaps
+        // bit diagonal is single so there will be only single hashmap
         for(int i=0;i<n;i++){
             rowsMap.add(new HashMap<>());
             colsMap.add(new HashMap<>());
@@ -52,6 +55,9 @@ public class OrderOneStrategy implements PlayerWonStratgey{
         // adding count of moves by player and if any move become equal to length like row, col, diagonal then user will won
         rowMap.put(symbol, rowMap.getOrDefault(symbol, 0)+1);
         colMap.put(symbol,colMap.getOrDefault(colMap,0)+1);
+        System.out.println(" player moved and we saved");
+        System.out.println(rowMap);
+        System.out.println(colMap);
 
         // will check for that location is present on diagonal or on reverse diagonal
         // if present on diafgonal then only update diagonal hm
@@ -64,14 +70,43 @@ public class OrderOneStrategy implements PlayerWonStratgey{
         }
         // now if count in any row, col, diagonal, reverse diagonal
         // in row maximum player= board size and same for col
-        // for diagonal: if all diagonal cell are field with same symbol then count= root((n*n)+(n*n))
+        // for diagonal: if all diagonal cell are field with same symbol then count
 
 
-        if(rowMap.get(symbol)==n) return true;
-        if(colMap.get(symbol)==n) return true;
-        if(checkIfCellIsOnDiagonal(currCell) &&  diagonalMap.get(symbol)==n ) return true;
-        if(checkIfCellIsOnReverseDiagonal(this.n, currCell) && reverseDiagonalMap.get(symbol)==n)return true;
+        if(rowMap.get(symbol)== board.getSize()) return true;
+        if(colMap.get(symbol)== board.getSize()) return true;
+        if(checkIfCellIsOnDiagonal(currCell) &&  diagonalMap.get(symbol)== board.getSize() ) return true;
+        if(checkIfCellIsOnReverseDiagonal(n, currCell) && reverseDiagonalMap.get(symbol)== board.getSize())return true;
         return  false;
+    }
+
+    @Override
+    public void handleUndo(Move move) {
+        Cell cell=move.getCell();
+        int row= cell.getRow();
+        int col=cell.getCol();
+
+        Player player=move.getPlayer();
+        char symbol=player.getSymbol().getS();
+
+
+        HashMap<Character, Integer> rowMap = rowsMap.get(row);
+        System.out.println(rowMap);
+        rowMap.put(symbol, rowMap.get(symbol) - 1);
+
+
+        HashMap<Character, Integer> colMap = colsMap.get(col);
+        System.out.println(colMap);
+        colMap.put(symbol, colMap.get(symbol) - 1);
+
+        if(checkIfCellIsOnDiagonal(cell)){
+            diagonalMap.put(symbol, diagonalMap.get(symbol) - 1);
+        }
+
+        if(checkIfCellIsOnReverseDiagonal(n, cell)){
+            reverseDiagonalMap.put(symbol, reverseDiagonalMap.get(symbol) - 1);
+        }
+
     }
 
     private boolean checkIfCellIsOnDiagonal(Cell cell){
