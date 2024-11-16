@@ -18,11 +18,12 @@ public class GameController {
     and then we can start the game
      */
 
-    public Game createGame(List<Player> players) throws BotCountExceedExcetpion {
+    public Game createGame(List<Player> players, int undoLimitPerPlayer) throws BotCountExceedExcetpion {
 
 
             Game game = Game.getGameBuilder()
                     .setPlayer(players)
+                    .setUndolimit(undoLimitPerPlayer)
                     .build();
             System.out.println("Game started real");
             return game;
@@ -43,6 +44,10 @@ public class GameController {
     public void makeMove(Game game){
         game.makeMove();
 
+    }
+
+    public void undo(Game game){
+        game.undo();
     }
 
 

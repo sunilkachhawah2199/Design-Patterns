@@ -73,5 +73,8 @@ public class Cell {
     }
 
 
-
+    public void removePlayer() {
+        this.setPlayer(null);
+        this.setCellStatus(CellStatus.UNOCCUPIED);
+    }
 }

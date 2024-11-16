@@ -96,6 +96,8 @@ public class TicTacGame {
 
             players.add(new BotPlayer("Bot"+(i+1), symbol, botLevel));
         }
+        System.out.println("Enter # of undos a player can do");
+        int numOfUndos = sc.nextInt();
 
         // ------------------------ now next step is create game object ------------------------
         // now we have created player list
@@ -122,7 +124,7 @@ public class TicTacGame {
         // we handled error in controller
         Game game;
         try{
-            game=gameController.createGame(players);
+            game=gameController.createGame(players, numOfUndos);
             System.out.println("Game started");
         }catch(Exception e){
             System.out.println("Error while creating the game: " + e.getMessage());
@@ -148,19 +150,21 @@ public class TicTacGame {
          */
 
         while(gameController.getGameStatus(game).equals(GameStatus.IN_PROGRESS)){
-            gameController.printBoard(game);
+
             gameController.makeMove(game);
+            gameController.undo(game);
 
         }
         GameStatus gameStatus=gameController.getGameStatus(game);
         if(gameStatus.equals(GameStatus.WON)){
-            gameController.printBoard(game);
             System.out.println("Game has been won");
         }
         if(gameStatus.equals(GameStatus.DRAW)){
-            gameController.printBoard(game);
+
             System.out.println("Game has been drawn");
         }
 
     }
 }
+
+// bot can play in multple way so we will use strategy design pattern
