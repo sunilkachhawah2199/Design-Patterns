@@ -10,7 +10,8 @@ public class Student {
     }
 
     // copy constructor
-    public Student(Student s){
+    // we have to keep this public so child can use this or we can make this protected
+    protected Student(Student s){
         this.name = s.name;
         this.age = s.age;
     }

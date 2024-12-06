@@ -14,6 +14,7 @@ public class Client {
         // registry pattern
 
         StudentRegistry sr= StudentRegistry.getInstance();
+        sr.add("1", s4);
 
         // runnable task --> checking single instance is created of registry object.
         Runnable task=() -> {
@@ -23,13 +24,14 @@ public class Client {
 
 
         // checking registry object is single or not
-        for(int i=1;i<1000;i++){
+        for(int i=1;i<10;i++){
             Thread t= new Thread(task);
             t.start();
             t.join();
         }
 
 
+        System.out.println(sr.get("1"));
         System.out.println("task completed");
     }
 }

@@ -1,5 +1,6 @@
 package machine_coding.parking_lot.models;
 
+import java.nio.channels.FileLock;
 import java.util.List;
 
 public class Floor extends BaseModel {
@@ -8,6 +9,11 @@ public class Floor extends BaseModel {
     private FloorStatus floorStatus;
 
     // getter and setters
+    public Floor(int id, List<Section> sections, FloorStatus floorStatus){
+        super.setId(id);
+        this.sections=sections;
+        floorStatus=this.floorStatus;
+    }
 
 
 
