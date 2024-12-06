@@ -28,4 +28,6 @@ public class ParkingLot extends BaseModel {
     }
 
     // end of getter and setters
+
+
 }

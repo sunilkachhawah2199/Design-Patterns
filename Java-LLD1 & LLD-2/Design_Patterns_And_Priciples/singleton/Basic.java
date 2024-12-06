@@ -1,6 +1,6 @@
 package Design_Patterns_And_Priciples.singleton;
 
-public class Basic {
+public class  Basic {
     private static Basic obj=null;
 
     // constructor is private so no one can create object

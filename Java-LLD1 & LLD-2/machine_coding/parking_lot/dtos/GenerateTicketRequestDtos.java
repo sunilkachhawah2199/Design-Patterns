@@ -2,6 +2,8 @@ package machine_coding.parking_lot.dtos;
 
 // DTO: data transfer object
 
+import machine_coding.parking_lot.exceptions.InvalidRequestException;
+
 public class GenerateTicketRequestDtos {
     private int gateId;
     private String vehicleNumber;
@@ -13,7 +15,7 @@ public class GenerateTicketRequestDtos {
         return gateId;
     }
 
-    public void setGateId(int gateId) {
+    public void setGateId(int gateId){
         this.gateId = gateId;
     }
 
@@ -22,6 +24,7 @@ public class GenerateTicketRequestDtos {
     }
 
     public void setVehicleNumber(String vehicleNumber) {
+
         this.vehicleNumber = vehicleNumber;
     }
 
@@ -30,6 +33,7 @@ public class GenerateTicketRequestDtos {
     }
 
     public void setVehicleType(String vehicleType) {
+
         this.vehicleType = vehicleType;
     }
 }

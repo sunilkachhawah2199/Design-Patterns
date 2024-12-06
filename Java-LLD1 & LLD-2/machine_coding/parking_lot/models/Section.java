@@ -9,6 +9,12 @@ public class Section extends BaseModel{
    private String name;
    private List<Spot> spots;
 
+   public Section(int id, String name, List<Spot> spots){
+       super.setId(id);
+       this.name=name;
+       this.spots=spots;
+   }
+
    // getter and setter
     public String getName() {
         return name;

@@ -4,7 +4,8 @@ import java.util.stream.Stream;
 
 public class Response {
     private ResponseStatus responseStatus;
-    private String error;
+    private String message;
+
 
     public ResponseStatus getResponseStatus() {
         return responseStatus;
@@ -14,11 +15,12 @@ public class Response {
         this.responseStatus = responseStatus;
     }
 
-    public String getError() {
-        return error;
+
+    public String getMessage() {
+        return message;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

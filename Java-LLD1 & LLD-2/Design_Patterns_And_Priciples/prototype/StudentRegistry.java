@@ -27,6 +27,7 @@ public class StudentRegistry  {
     // add in registry
     public void add(String key, Student s){
         registry.put(key, s);
+        System.out.println(s);
         System.out.println("added to registry");
     }
 
