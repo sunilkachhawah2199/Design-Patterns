@@ -1,8 +1,6 @@
 package machine_coding.tictactoe.controllers;
 
-import Design_Patterns_And_Priciples.factory.Platform;
 import machine_coding.tictactoe.exceptions.BotCountExceedExcetpion;
-import machine_coding.tictactoe.models.Board;
 import machine_coding.tictactoe.models.Game;
 import machine_coding.tictactoe.models.GameStatus;
 import machine_coding.tictactoe.models.Player;
