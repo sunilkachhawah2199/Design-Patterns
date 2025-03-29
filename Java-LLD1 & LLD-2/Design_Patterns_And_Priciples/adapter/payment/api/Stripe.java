@@ -9,3 +9,4 @@ public class Stripe {
         return true;
     }
 }
+

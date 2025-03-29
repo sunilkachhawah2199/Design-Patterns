@@ -1,4 +1,4 @@
-package Design_Patterns_And_Priciples.observer;
+package Design_Patterns_And_Priciples.observer.bitcoin_tracker;
 
 public class Bitcoin {
     private double price;

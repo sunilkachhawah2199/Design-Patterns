@@ -2,6 +2,7 @@ package Design_Patterns_And_Priciples.adapter.payment.adapter;
 
 import Design_Patterns_And_Priciples.adapter.payment.api.Stripe;
 
+// stripe adapter
 public class StripeAdapter implements PaymentService{
     Stripe stripe=new Stripe();
     @Override

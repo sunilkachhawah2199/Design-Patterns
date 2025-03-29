@@ -1,4 +1,4 @@
-package Design_Patterns_And_Priciples.observer;
+package Design_Patterns_And_Priciples.observer.bitcoin_tracker;
 
 
 // concrete observable class

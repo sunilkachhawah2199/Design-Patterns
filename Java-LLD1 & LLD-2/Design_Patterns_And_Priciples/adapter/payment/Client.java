@@ -9,6 +9,5 @@ public class Client {
         PaymentService paymentService = new StripeAdapter();
         paymentService.pay();
         paymentService.verify();
-
     }
 }

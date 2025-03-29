@@ -2,6 +2,7 @@ package Design_Patterns_And_Priciples.adapter.payment.adapter;
 
 import Design_Patterns_And_Priciples.adapter.payment.api.Paypal;
 
+// paypal adapter
 public class PaypalAdapter implements PaymentService{
     Paypal paypal=new Paypal();
     @Override
